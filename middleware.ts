@@ -14,6 +14,13 @@ export function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL(`/case1/ssr`, request.url));
     }
   }
+  else if (url.pathname === '/case2') {
+    const requestHeaders = new Headers(request.headers);
+    const variant = requestHeaders.get('X-Version') || 'control';
+    if (variant != 'control') {
+      return NextResponse.rewrite(new URL(`/case2/ssr`, request.url));
+    }
+  }
   return response;
 }
 
