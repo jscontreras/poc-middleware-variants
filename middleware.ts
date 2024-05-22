@@ -21,8 +21,7 @@ export function middleware(request: NextRequest) {
       // console.log('case2-ssr');
       return NextResponse.rewrite(new URL(`/case2/ssr`, request.url));
     } else {
-      // console.log('case2-isr');
-      NextResponse.next();
+      return;
     }
   }
   NextResponse.next();
