@@ -7,8 +7,10 @@ export function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     const variant = requestHeaders.get('X-Version') || 'control';
     if (variant ===  'control') {
+      console.log('case1-isr');
       return NextResponse.rewrite(new URL(`/case1/isr`, request.url));
     } else {
+      console.log('case1-ssr');
       return NextResponse.rewrite(new URL(`/case1/ssr`, request.url));
     }
   }
@@ -16,12 +18,13 @@ export function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     const variant = requestHeaders.get('X-Version') || 'control';
     if (variant !== 'control') {
+      console.log('case2-ssr');
       return NextResponse.rewrite(new URL(`/case2/ssr`, request.url));
+    } else {
+      console.log('case2-isr');
     }
   }
-  else {
-    return NextResponse.next();
-  }
+  NextResponse.next();
 }
 
 export const config = {
