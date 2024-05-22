@@ -3,8 +3,6 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
-  const response = NextResponse.next();
-
   if (url.pathname === '/case1') {
     const requestHeaders = new Headers(request.headers);
     const variant = requestHeaders.get('X-Version') || 'control';
@@ -24,9 +22,9 @@ export function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL(`/case2/ssr`, request.url));
     } else {
       console.log('case2-isr');
+      NextResponse.next();
     }
   }
-  return response;
 }
 
 export const config = {
