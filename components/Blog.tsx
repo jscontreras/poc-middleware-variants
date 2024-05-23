@@ -2,6 +2,7 @@
 export async function Blog({children}) {
   // await delay(5000);
   const res = await fetch(`https://worldtimeapi.org/api/ip`, {
+    cache: 'force-cache',
     next: { tags: ['test-tag'] },
   });
   const data = (await res.json()) as { datetime: string };
@@ -16,6 +17,7 @@ export async function Blog({children}) {
   const postId = dateObj.getSeconds();
   // second request
   const resLorem = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+    cache: 'force-cache',
     next: { tags: ['test-tag-2'] },
   });
 
